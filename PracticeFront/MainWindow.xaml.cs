@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using QuickGraph;
 
 namespace ControlsApp
 {
@@ -15,13 +16,37 @@ namespace ControlsApp
     public partial class MainWindow : Window
     {
         gtr gtr = new gtr();
+
+        private IBidirectionalGraph<object, IEdge<object>> _graphToVisualize;
+        public IBidirectionalGraph<object, IEdge<object>> GraphToVisualize
+        {
+            get { return _graphToVisualize; }
+        }
         public MainWindow()
         {
+            CreateGraphToVisualize();
             InitializeComponent();
             
         }
 
-        
+        private void CreateGraphToVisualize()
+        {
+            var g = new BidirectionalGraph<object, IEdge<object>>();
+
+            string[] verticel = new string[5];
+            for (int i = 0; i < 5; i++) {
+                verticel[i] = i.ToString();
+                g.AddVertex(verticel[i]);
+            }
+            g.AddEdge(new Edge<object>(verticel[0],verticel[1]));
+            g.AddEdge(new Edge<object>(verticel[1],verticel[2]));
+            g.AddEdge(new Edge<object>(verticel[2],verticel[3]));
+            g.AddEdge(new Edge<object>(verticel[3],verticel[1]));
+            g.AddEdge(new Edge<object>(verticel[1],verticel[3]));
+            g.AddEdge(new Edge<object>(verticel[0],verticel[4]));
+
+            _graphToVisualize = g;
+        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

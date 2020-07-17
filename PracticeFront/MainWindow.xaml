@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:dataGrid2D="http://gu.se/DataGrid2D"
+        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+
         xmlns:local="clr-namespace:ControlsApp"
         mc:Ignorable="d"
-        Title="Элементы управления" Height="720" Width="1280">
+        Title="Элементы управления" Height="720" Width="1280"
+        x:Name="root">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
 
@@ -39,8 +41,11 @@
             <Button Grid.Row="0" Margin="300,50,300,0">2</Button>
             <Button Grid.Row="0" Margin="20,50,500,0">3</Button>
 
-
-
+            <graphsharp:GraphLayout x:Name="graphLayout"
+                                    Grid.Row="1"
+                                    Graph="{Binding ElementName=root,Path=GraphToVisualize}">
+                
+            </graphsharp:GraphLayout>
 
         </Grid>
 
